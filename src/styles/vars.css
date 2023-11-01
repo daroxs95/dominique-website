@@ -1,0 +1,15 @@
+@import url("../../decss/theme.css");
+
+:root {
+  --max-width: 1280px;
+  --border-radius: 0px;
+  --color-primary-light: #011627;
+  --color-primary: #011627;
+  --color-primary-dark: #011627;
+  --color-primary-complement: #e71d36;
+
+  /* Shadows */
+  --color-primary-shadow: #011627;
+
+  --color-text: #011627;
+}

@@ -3,9 +3,92 @@ import { SITE_TITLE } from "../consts";
 ---
 
 <header class="">
-  <nav class="">
+  <nav class="nav p-0">
+    <div class="content f-ai-center f-jc-between">
+      <div class="f-ai-center">
+        <a href="/" class="f-ai-center">
+          <img alt="" width="70" height="70" src="icon.png" />
+        </a>
+        <b class="hide-mobile">DEngine</b>
+      </div>
+      <div class="f-ai-center m-0 h-100">
+        <a class="abtn p-def" href="#">Doc</a>
+        <a class="abtn p-def" href="#">Playground</a>
+        <a class="abtn p-def" href="#">About</a>
+      </div>
+    </div>
   </nav>
 </header>
 
+<script>
+  import gsap from "../utils/gsap.mjs";
+
+  gsap.fromTo(
+    "header",
+    {
+      opacity: 0,
+      y: -100,
+      zIndex: 999,
+    },
+    {
+      opacity: 1,
+      y: 0,
+      duration: 0.5,
+      zIndex: 999,
+    }
+  );
+
+  // add border bottom to nav on scroll
+  gsap.to("html", {
+    scrollTrigger: {
+      trigger: "html",
+      start: "top top",
+      end: "bottom top",
+      scrub: true,
+      toggleClass: "no-top-position",
+    },
+  });
+</script>
+
 <style>
+  .content {
+    max-width: var(--max-width);
+    width: 100%;
+    margin: auto;
+    height: 120px;
+    transition: height 0.2s ease-in-out;
+  }
+
+  b {
+    font-size: 25px;
+  }
+
+  header {
+    position: sticky;
+    top: 0;
+    background-color: white;
+  }
+
+  a {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 60px;
+  }
+
+  nav {
+    border: none;
+    z-index: 10;
+    transition: box-shadow 0.2s ease-in-out;
+  }
+  html.no-top-position nav {
+    box-shadow:
+      rgba(5, 22, 39, 0.1) 0px 0px 6px 0px,
+      rgba(5, 22, 39, 0.1) 0px 0px 3px 0px;
+  }
+
+  html.no-top-position .content {
+    height: 90px;
+  }
 </style>

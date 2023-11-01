@@ -1,7 +1,72 @@
 ---
 // import "../styles/components/anchor_button.css";
+
+import { EMAIL, GITHUB, INSTA, SITE_MADE_IN_YEAR, SITE_TITLE } from "../consts";
 ---
 
-<footer></footer>
+<footer>
+  <div class="footer-content">
+    <h2>Contact</h2>
+    <div class="social">
+      <!-- <a class="abtn" href={`mailto:${EMAIL}`}>{EMAIL}</a> -->
+      <a class="abtn" target="_blank" referrerpolicy="no-referrer" href={GITHUB}
+        >Github</a
+      >
+      <a class="abtn" target="_blank" referrerpolicy="no-referrer" href={INSTA}
+        >Instagram</a
+      >
+    </div>
+  </div>
+  <h4 style="text-align: center">
+    • Made with <span>❤</span> •
+    <a href={GITHUB}>{SITE_TITLE}</a>
+     • {SITE_MADE_IN_YEAR} •
+  </h4>
+</footer>
 
-<style></style>
+<style>
+  footer {
+    background-color: var(--color-bg-dark);
+    color: white;
+    padding: calc(var(--v-gap) * 4) 0;
+  }
+
+  a {
+    text-decoration: underline;
+    color: white;
+    padding: 0;
+    &:visited {
+      color: white;
+    }
+  }
+
+  a:hover {
+    color: var(--color-bg-dark);
+    background-color: white;
+  }
+
+  .footer-content {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: calc(var(--v-gap) * 4) var(--h-gap);
+    padding-top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: calc(var(--h-gap));
+  }
+
+  .social {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: calc(var(--h-gap) / 4);
+  }
+
+  .social a {
+    font-size: 25px;
+    padding: calc(var(--v-gap) / 2) var(--h-gap);
+  }
+</style>

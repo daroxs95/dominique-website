@@ -1,17 +1,25 @@
 ---
 import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
 import Base from "../layouts/Base.astro";
+import Hero from "../modules/landing/application/Hero.astro";
+import Perks from "../modules/landing/application/Perks.astro";
 ---
 
 <Base
   title={SITE_TITLE}
   description={SITE_DESCRIPTION}
-  keywords={"3d, 2d, webgl, opengl, videogames, game engine, open source, FOSS, "}
+  keywords={"3d, 2d, webgl, opengl, videogames, game engine, open source, FOSS"}
 >
-  <h1>Hello Dominique</h1>
-  <script>
-    import gsap from "../utils/gsap.mjs";
-
-    gsap.to("h1", { duration: 2, x: 100 });
-  </script>
+  <main>
+    <section>
+      <Hero />
+      <Perks />
+    </section>
+  </main>
 </Base>
+
+<style>
+  main {
+    min-height: 700px;
+  }
+</style>

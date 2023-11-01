@@ -1,0 +1,14 @@
+.abtn {
+	color: var(--color-text);
+	transition: color 0.3s, background-color 0.3s;
+}
+
+.abtn:hover {
+	color: white;
+	background-color: var(--color-primary);
+	text-decoration: none;
+}
+
+.abtn:hover:not([aria-disabled="true"]) {
+	text-decoration: none;
+}

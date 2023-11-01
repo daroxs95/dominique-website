@@ -1,0 +1,67 @@
+---
+---
+
+<div class="hero p-def">
+  <div class='text'>
+    <h1> Streamlining game engine dev</h1>
+    <p>The seamless experience to get back to our roots as developers and seize control over our graphical apps</p>
+  </div>
+  <div class='img'>
+    <img height='200' width='200' alt='' src="hero_engine2-nobg.png">
+  </div>
+</div>
+
+<script>
+  import gsap from "gsap";
+
+  gsap.from(".hero .text", { duration: 1, opacity: 0, x: -100 });
+  gsap.from(".hero .img", { duration: 1, opacity: 0, x: +100 });
+</script>
+
+<style>
+  .hero {
+    max-width: var(--max-width);
+    width: 100%;
+    margin: auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    @media (width >=768px) {
+      grid-template-columns: 1fr 1fr;
+    }
+    justify-content: center;
+    align-items: center;
+  }
+
+  h1 {
+    font-size: 32px;
+    line-height: 120%;
+    letter-spacing: 2px;
+    font-weight: 600;
+    text-align: center;
+    @media (width >=768px) {
+      font-size: 52px;
+      text-align: left;
+    }
+  }
+
+  p {
+    font-size: 20px;
+  }
+
+  .hero .img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  img {
+    height: 200px;
+    width: 200px;
+    object-fit: contain;
+    /* height: auto; */
+    @media (width >=768px) {
+      height: 350px;
+      width: 350px;
+    }
+  }
+</style>

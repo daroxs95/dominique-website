@@ -1,0 +1,71 @@
+---
+
+---
+
+<div class="perks p-def hstack">
+  <div class="perk">
+    <h3>Learn</h3>
+    <p>Learn the craft</p>
+    <a class="btn" href="#">Learn</a>
+  </div>
+  <div class="perk">
+    <h3>DEVELOP</h3>
+    <p>Develop custom engine solutions</p>
+    <a class="btn" href="#">Develop</a>
+  </div>
+  <div class="perk">
+    <h3>CREATE</h3>
+    <p>Use your solution to build games</p>
+    <a class="btn" href="#">Create</a>
+  </div>
+  <div class="perk">
+    <h3>RELEASE</h3>
+    <p>Share with the world</p>
+    <a class="btn" href="#">Release</a>
+  </div>
+</div>
+
+<script>
+  import gsap from "gsap";
+
+  const perkElements = document.querySelectorAll(".perk");
+  perkElements.forEach((perk, index) => {
+    gsap.from(perk, {
+      opacity: 0,
+      y: "+=100",
+      duration: 1,
+      delay: index * 0.2,
+    });
+  });
+  // gsap.from(".perks", { duration: 1, opacity: 0, y: 100 });
+</script>
+
+<style>
+  h3 {
+    font-size: 20px;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+
+  .perks {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    flex-direction: column;
+    gap: calc(var(--h-gap) * 5);
+
+    @media (width >=768px) {
+      flex-direction: row;
+    }
+  }
+
+  .perk {
+    max-width: 300px;
+    flex-direction: column;
+    display: flex;
+    flex: 1;
+  }
+
+  a {
+    margin-top: var(--v-gap);
+  }
+</style>
