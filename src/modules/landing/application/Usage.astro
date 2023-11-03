@@ -168,7 +168,7 @@ logger.info(\`New TransformComponent position of newEnt: \${scene.Get<TransformC
               Learn more
             </a>
           </div>
-          <div class="item-code">
+          <div class="item-code box-rotate tack_mouse">
             <ul class="f-ai-center p-0 tabs">
               <li class="p-def active abtn rc tab-button" data-tab="cpp">
                 c++
@@ -292,6 +292,21 @@ logger.info(\`New TransformComponent position of newEnt: \${scene.Get<TransformC
       },
     });
   });
+
+  const els = document.querySelectorAll(".tack_mouse");
+  els.forEach((element) => {
+    element.addEventListener("mousemove", (event) => {
+      const rect = element.getBoundingClientRect();
+      const x = event.clientX - rect.left;
+      const y = event.clientY - rect.top;
+      const width = rect.width;
+      const height = rect.height;
+      const mousex = Number(((x / width) * 2 - 1).toFixed(2));
+      const mousey = Number(((y / height) * -2 + 1).toFixed(2));
+      element.style.setProperty("--mousex", mousex);
+      element.style.setProperty("--mousey", mousey);
+    });
+  });
 </script>
 
 <style>
@@ -303,7 +318,6 @@ logger.info(\`New TransformComponent position of newEnt: \${scene.Get<TransformC
   }
 
   .section {
-    overflow: hidden;
     height: 80vh;
   }
 
@@ -407,5 +421,23 @@ logger.info(\`New TransformComponent position of newEnt: \${scene.Get<TransformC
 
   .content-wrap {
     position: relative;
+  }
+
+  .box-rotate {
+    --mousex: 0;
+    --mousey: 0;
+    transform-style: preserve-3d;
+    transition:
+      opacity 0.3s var(--cool-easing),
+      transform 1s var(--cool-easing);
+    @media (width >=768px) {
+      transform: perspective(600px) rotateX(0deg) rotateY(-10deg);
+    }
+  }
+  .box-rotate:hover {
+    @media (width >=768px) {
+      transform: perspective(600px) rotateX(calc(var(--mousey) * 2deg))
+        rotateY(calc(var(--mousex) * 2deg));
+    }
   }
 </style>
