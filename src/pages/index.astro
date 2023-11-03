@@ -3,6 +3,7 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
 import Base from "../layouts/Base.astro";
 import Hero from "../modules/landing/application/Hero.astro";
 import Perks from "../modules/landing/application/Perks.astro";
+import Usage from "../modules/landing/application/Usage.astro";
 ---
 
 <Base
@@ -15,11 +16,22 @@ import Perks from "../modules/landing/application/Perks.astro";
       <Hero />
       <Perks />
     </section>
+    <section>
+      <Usage />
+    </section>
+    <section>
+      <Hero />
+      <Perks />
+    </section>
   </main>
 </Base>
 
 <style>
   main {
     min-height: 700px;
+  }
+
+  section {
+    margin-bottom: calc(var(--v-gap) * 20);
   }
 </style>

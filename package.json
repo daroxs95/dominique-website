@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "astro": "^3.2.3",
-    "gsap": "^3.12.2"
+    "gsap": "^3.12.2",
+    "highlight.js": "^11.9.0"
   }
 }

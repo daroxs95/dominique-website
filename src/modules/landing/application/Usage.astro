@@ -1,0 +1,396 @@
+---
+import hljs from "highlight.js/lib/core";
+import ts from "highlight.js/lib/languages/typescript";
+import cpp from "highlight.js/lib/languages/cpp";
+import "highlight.js/styles/github.css";
+
+hljs.registerLanguage("ts", ts);
+hljs.registerLanguage("cpp", cpp);
+
+const usageData = [
+  {
+    title: "Core engine",
+    description:
+      "High level abstraction and multiplatform abstraction layer for windows, events, inputs and graphics backend",
+    // description: "High level abstraction for full engine lifecicle, assets loading, resources management, logging, IPC utils and more",
+    code: {
+      cpp: `
+#include "dengine/core.h"
+
+int main() {
+  de::DE App;
+  App.rendererType = de::RendererType::OpenGl; // Not needed for the moment
+  App.config.title = "DEngine App";
+  App.config.width = 800;
+  App.config.height = 600;
+
+  de::logSDL2renderersInfo();
+
+  de::core::Init(App);
+  de::core::Run(App);
+  de::core::Clean(App);
+
+  return 0;
+}`,
+      ts: `
+import { DE, RendererType } from "dengine/core";
+
+const main = () => {
+  const App = new DE();
+  App.rendererType = RendererType.OpenGl; // Not needed for the moment
+  App.config.title = "DEngine App";
+  App.config.width = 800;
+  App.config.height = 600;
+
+  de.logSDL2renderersInfo();
+
+  de.core.Init(App);
+  de.core.Run(App);
+  de.core.Clean(App);
+
+  return 0;
+};
+
+main();`,
+    },
+  },
+  {
+    title: "uuid",
+    description:
+      "Standardized UUIDs generation module, bootstraped to be ISO compliant and thread safe",
+    code: {
+      cpp: `
+#include "dengine/utils/uuid.h"
+#include "dengine/spdlog_helper.h"
+
+int main {
+  auto logger = getMultiSinkLogger();
+
+  // Different UUIDS
+  logger.info("UUID 1: {}", de::utils::uuids::GetUUID().to_string());
+  logger.info("UUID 2: {}", de::utils::uuids::GetUUID().to_string());
+
+  return 0;
+}`,
+      ts: `
+import { getMultiSinkLogger } from "dengine/spdlog_helper";
+import { utils } from "dengine/utils";
+
+const main = () => {
+  const logger = getMultiSinkLogger();
+
+  // Different UUIDS
+  logger.info(\`UUID 1: \${utils.uuids.GetUUID().to_string()}\`);
+  logger.info(\`UUID 2: \${utils.uuids.GetUUID().to_string()}\`);
+
+  return 0;
+};
+
+main();`,
+    },
+  },
+  {
+    title: "ECS",
+    description:
+      "Entity component systems from the ground up for high performance runtime",
+    code: {
+      cpp: `
+#include "dengine/ecs/ecs.hpp"
+
+int main {
+  auto logger = getMultiSinkLogger();
+
+  struct TransformComponent {
+    float position{1.0f};
+    float rotation{2.0f};
+  };
+  struct TagIdComponent {
+    int id{2};
+  };
+
+  logger.info("TransformComponent ID: {}",
+              de::ecs::GetId<TransformComponent>());
+  logger.info("TagId ID: {}", de::ecs::GetId<TagIdComponent>());
+
+  de::ecs::Scene scene;
+  de::ecs::EntityID newEnt = scene.NewEntity();
+  scene.Assign<TransformComponent>(newEnt);
+  auto t = scene.Get<TransformComponent>(newEnt);
+  logger.info("TransformComponent position of newEnt: {}",
+              scene.Get<TransformComponent>(newEnt)->position);
+  t->position = 3.0f;
+  logger.info("New TransformComponent position of newEnt: {}",
+              scene.Get<TransformComponent>(newEnt)->position);
+  
+  return 0;
+}
+`,
+      ts: `
+import { Scene, EntityID } from "dengine/ecs/ecs";
+
+interface TransformComponent {
+  position: number;
+  rotation: number;
+}
+
+interface TagIdComponent {
+  id: number;
+}
+
+const logger = getMultiSinkLogger();
+
+logger.info(\`TransformComponent ID: \${Scene.GetId<TransformComponent>()}\`);
+logger.info(\`TagId ID: \${Scene.GetId<TagIdComponent>()}\`);
+
+const scene = new Scene();
+const newEnt: EntityID = scene.NewEntity();
+scene.Assign<TransformComponent>(newEnt);
+const t = scene.Get<TransformComponent>(newEnt);
+logger.info(\`TransformComponent position of newEnt: \${scene.Get<TransformComponent>(newEnt)?.position}\`);
+t.position = 3.0;
+logger.info(\`New TransformComponent position of newEnt: \${scene.Get<TransformComponent>(newEnt)?.position}\`);
+      `,
+    },
+  },
+];
+---
+
+<div class="section">
+  <div class="content-wrap">
+    <div class="sideline"></div>
+    {
+      usageData.map((d, i) => (
+        <div id={`content-${i}`} class="usage p-def hstack">
+          <div class="item-desc">
+            <h3>{d.title}</h3>
+            <p>{d.description}</p>
+            <a class="btn inverted" href="#">
+              Learn more
+            </a>
+          </div>
+          <div class="item-code">
+            <ul class="f-ai-center p-0 tabs">
+              <li class="p-def active abtn rc tab-button" data-tab="cpp">
+                c++
+              </li>
+              <li class="p-def abtn tab-button" data-tab="ts">
+                typescript
+              </li>
+            </ul>
+            <div class="item-code-content p-def">
+              <pre
+                id="cpp"
+                class="tab-content active"
+                set:html={hljs.highlight(d.code.cpp, { language: "cpp" }).value}
+              >
+                <button class="copy btn floating inverted">Copy</button>
+              </pre>
+              <pre
+                id="ts"
+                class="tab-content"
+                set:html={hljs.highlight(d.code.ts, { language: "ts" }).value}
+              >
+                <button class="copy btn floating inverted">Copy</button>
+              </pre>
+            </div>
+          </div>
+        </div>
+      ))
+    }
+  </div>
+</div>
+
+<script>
+  import gsap from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+  import "../../../../decss/utils/tabs/index.mjs";
+
+  const copyBtns = document.querySelectorAll(".copy");
+  copyBtns.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const code = btn?.parentElement?.querySelector("code");
+      navigator.clipboard.writeText(code?.innerText || "");
+      gsap.to(btn, { duration: 0.2, scale: 1.2, opacity: 0 });
+      gsap.to(btn, { duration: 0.2, delay: 0.2, scale: 1, opacity: 1 });
+    });
+  });
+
+  const section = document.querySelector(".section");
+
+  var contents = gsap.utils.toArray(".usage");
+  var totalDuration = 1000;
+  var singleDuration = totalDuration / contents.length;
+  const lineTimeline = gsap.timeline();
+  ScrollTrigger.create({
+    trigger: section,
+    start: "top top",
+    end: "+=" + totalDuration,
+    pin: true,
+    scrub: true,
+    animation: lineTimeline,
+  });
+
+  lineTimeline
+    .to(".sideline", { duration: 1 }, 0)
+    .to(".sideline", { duration: 0.9, scaleY: 1, ease: "none" }, 0);
+
+  contents.forEach((elem, i) => {
+    const relevantContent = elem;
+    gsap.set(relevantContent, { alpha: i !== 0 ? 0 : 1 });
+
+    const d = section.getBoundingClientRect().top;
+    ScrollTrigger.create({
+      trigger: "body",
+      start: `${singleDuration * i + d} top`,
+      end: `+=${singleDuration}`,
+      toggleActions: "play reverse play reverse",
+      onEnter: () => {
+        console.log(`enter content-${i}`);
+        if (i === 0) return;
+        // appear from below
+        gsap.fromTo(
+          relevantContent,
+          { y: 100 },
+          { alpha: 1, y: 0, duration: 0.5 }
+        );
+      },
+      onLeave: () => {
+        console.log(`leave content-${i}`);
+        if (i === contents.length - 1) return;
+        // disappear to above
+        gsap.to(relevantContent, { alpha: 0, y: -100, duration: 0.5 });
+      },
+      onEnterBack: () => {
+        console.log(`enter back content-${i}`);
+        if (i === contents.length - 1) return;
+        // appear from above
+        gsap.fromTo(
+          relevantContent,
+          { y: -100 },
+          { alpha: 1, y: 0, duration: 0.5 }
+        );
+      },
+      onLeaveBack: () => {
+        console.log(`leave back content-${i}`);
+        if (i === 0) return;
+        // disappear to below
+        gsap.to(relevantContent, { alpha: 0, y: 100, duration: 0.5 });
+      },
+    });
+  });
+</script>
+
+<style>
+  h3 {
+    font-size: 34px;
+  }
+  p {
+    font-size: 20px;
+  }
+
+  .section {
+    overflow: hidden;
+    height: 80vh;
+  }
+
+  .usage {
+    position: absolute;
+    left: 0;
+    right: 0;
+    max-width: var(--max-width);
+    height: 100vh;
+    width: 100%;
+    margin: auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    @media (width >=768px) {
+      grid-template-columns: 1fr 1fr;
+    }
+    justify-content: center;
+    align-items: center;
+  }
+
+  .item-text {
+    flex: 1;
+  }
+  .item-code {
+    background-color: var(--app-bg-light);
+    border-radius: 16px;
+    max-width: 300px;
+    max-height: 550px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    @media (width >=768px) {
+      max-width: 600px;
+    }
+  }
+
+  .item-code ul {
+    border-bottom: 1px solid var(--app-bg-dark);
+  }
+
+  .item-code li {
+    font-weight: 700;
+    cursor: default;
+    user-select: none;
+  }
+
+  .item-code li.active {
+    color: white;
+    background-color: var(--color-primary);
+  }
+
+  .rc {
+    border-top-left-radius: 16px;
+  }
+
+  .tab-content {
+    display: none;
+  }
+
+  .tab-content.active {
+    display: block;
+  }
+
+  .item-code-content {
+    position: relative;
+    overflow: hidden;
+  }
+  .item-code-content .btn {
+    position: absolute;
+    border-radius: 3px;
+    top: 0;
+    right: 0;
+    margin: 8px;
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
+  }
+  .item-code-content:hover .btn {
+    opacity: 1;
+  }
+
+  pre,
+  code {
+    width: 100%;
+    overflow: auto;
+    height: 100%;
+  }
+
+  .sideline {
+    position: absolute;
+    top: calc(50vh - 111px);
+    left: calc(50vw - var(--max-width) / 2 - 3px);
+    height: 222px;
+    width: 3px;
+    background-color: var(--color-primary-complement);
+
+    transform: scaleY(0);
+    transform-origin: top center;
+    z-index: 1;
+  }
+
+  .content-wrap {
+    position: relative;
+  }
+</style>

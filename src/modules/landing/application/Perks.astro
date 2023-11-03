@@ -30,12 +30,19 @@
 
   const perkElements = document.querySelectorAll(".perk");
   perkElements.forEach((perk, index) => {
-    gsap.from(perk, {
-      opacity: 0,
-      y: "+=100",
-      duration: 1,
-      delay: index * 0.2,
-    });
+    gsap.fromTo(
+      perk,
+      {
+        opacity: 0,
+        y: "+=100",
+      },
+      {
+        opacity: 1,
+        duration: 1,
+        y: 0,
+        delay: index * 0.2,
+      }
+    );
   });
   // gsap.from(".perks", { duration: 1, opacity: 0, y: 100 });
 </script>
@@ -63,6 +70,7 @@
     flex-direction: column;
     display: flex;
     flex: 1;
+    opacity: 0;
   }
 
   a {

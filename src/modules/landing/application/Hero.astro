@@ -1,21 +1,33 @@
 ---
+
 ---
 
 <div class="hero p-def">
-  <div class='text'>
-    <h1> Streamlining game engine dev</h1>
-    <p>The seamless experience to get back to our roots as developers and seize control over our graphical apps</p>
+  <div class="text">
+    <h1>Streamlining game engine dev</h1>
+    <p>
+      The seamless experience to get back to our roots as developers and seize
+      control over our graphical apps
+    </p>
   </div>
-  <div class='img'>
-    <img height='200' width='200' alt='' src="hero_engine2-nobg.png">
+  <div class="img">
+    <img height="200" width="200" alt="" src="hero_engine2-nobg.png" />
   </div>
 </div>
 
 <script>
   import gsap from "gsap";
 
-  gsap.from(".hero .text", { duration: 1, opacity: 0, x: -100 });
-  gsap.from(".hero .img", { duration: 1, opacity: 0, x: +100 });
+  gsap.fromTo(
+    ".hero .text",
+    { opacity: 0, x: -100 },
+    { duration: 1, opacity: 1, x: 0 }
+  );
+  gsap.fromTo(
+    ".hero .img",
+    { opacity: 0, x: +100 },
+    { duration: 1, opacity: 1, x: 0 }
+  );
 </script>
 
 <style>
@@ -52,6 +64,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    opacity: 0;
+  }
+
+  .hero .text {
+    opacity: 0;
   }
 
   img {

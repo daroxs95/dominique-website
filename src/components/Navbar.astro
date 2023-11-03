@@ -3,10 +3,10 @@ import { SITE_TITLE } from "../consts";
 ---
 
 <header class="">
-  <nav class="nav p-0">
+  <nav class="nav p-def">
     <div class="content f-ai-center f-jc-between">
       <div class="f-ai-center">
-        <a href="/" class="f-ai-center">
+        <a class="p-0" href="/" class="f-ai-center">
           <img alt="" width="70" height="70" src="icon.png" />
         </a>
         <b class="hide-mobile">DEngine</b>
@@ -67,10 +67,11 @@ import { SITE_TITLE } from "../consts";
     position: sticky;
     top: 0;
     background-color: white;
+    opacity: 0;
   }
 
   a {
-    height: 100%;
+    /* height: 100%; */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -81,6 +82,8 @@ import { SITE_TITLE } from "../consts";
     border: none;
     z-index: 10;
     transition: box-shadow 0.2s ease-in-out;
+    padding-top: 0;
+    padding-bottom: 0;
   }
   html.no-top-position nav {
     box-shadow:
@@ -90,5 +93,9 @@ import { SITE_TITLE } from "../consts";
 
   html.no-top-position .content {
     height: 90px;
+  }
+
+  html.no-top-position a {
+    height: 100%;
   }
 </style>
