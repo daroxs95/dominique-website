@@ -27,7 +27,7 @@ const posts = [
   <h2 class="">Posts</h2>
 </div>
 
-<div class="posts p-def hstack f-wrap f-jc-center">
+<div class="posts p-def hstack">
   {
     posts.map((p) => (
       <div class="post fadein-item awidth">
@@ -83,10 +83,14 @@ const posts = [
     max-width: var(--max-width);
     margin: 0 auto;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
     gap: calc(var(--h-gap) * 5);
     flex-wrap: wrap;
     @media (width >=768px) {
       flex-direction: row;
+      align-items: start;
     }
   }
 
