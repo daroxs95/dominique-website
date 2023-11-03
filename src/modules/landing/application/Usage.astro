@@ -236,7 +236,10 @@ logger.info(\`New TransformComponent position of newEnt: \${scene.Get<TransformC
 
   contents.forEach((elem, i) => {
     const relevantContent = elem;
-    gsap.set(relevantContent, { alpha: i !== 0 ? 0 : 1 });
+    gsap.set(relevantContent, {
+      alpha: i !== 0 ? 0 : 1,
+      zIndex: i !== 0 ? -100 : 100,
+    });
 
     const d = section.getBoundingClientRect().top;
     ScrollTrigger.create({
@@ -251,14 +254,19 @@ logger.info(\`New TransformComponent position of newEnt: \${scene.Get<TransformC
         gsap.fromTo(
           relevantContent,
           { y: 100 },
-          { alpha: 1, y: 0, duration: 0.5 }
+          { alpha: 1, y: 0, duration: 0.5, zIndex: 100 }
         );
       },
       onLeave: () => {
         console.log(`leave content-${i}`);
         if (i === contents.length - 1) return;
         // disappear to above
-        gsap.to(relevantContent, { alpha: 0, y: -100, duration: 0.5 });
+        gsap.to(relevantContent, {
+          alpha: 0,
+          y: -100,
+          duration: 0.5,
+          zIndex: -100,
+        });
       },
       onEnterBack: () => {
         console.log(`enter back content-${i}`);
@@ -267,14 +275,19 @@ logger.info(\`New TransformComponent position of newEnt: \${scene.Get<TransformC
         gsap.fromTo(
           relevantContent,
           { y: -100 },
-          { alpha: 1, y: 0, duration: 0.5 }
+          { alpha: 1, y: 0, duration: 0.5, zIndex: 100 }
         );
       },
       onLeaveBack: () => {
         console.log(`leave back content-${i}`);
         if (i === 0) return;
         // disappear to below
-        gsap.to(relevantContent, { alpha: 0, y: 100, duration: 0.5 });
+        gsap.to(relevantContent, {
+          alpha: 0,
+          y: 100,
+          duration: 0.5,
+          zIndex: -100,
+        });
       },
     });
   });
@@ -356,6 +369,7 @@ logger.info(\`New TransformComponent position of newEnt: \${scene.Get<TransformC
   .item-code-content {
     position: relative;
     overflow: hidden;
+    height: 100%;
   }
   .item-code-content .btn {
     position: absolute;
