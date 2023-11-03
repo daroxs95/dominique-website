@@ -9,8 +9,13 @@
   --color-primary-complement: #e71d36;
   --app-bg-light: #f6f6f8;
 
-  /* Shadows */
+  /* shadows */
   --color-primary-shadow: #011627;
 
+  /* text */
   --color-text: #011627;
+
+  /* easings */
+  --cool-easing: cubic-bezier(0.075, 0.82, 0.165, 1);
+  --ease-wiggle: cubic-bezier(0.74, -0.6, 0.225, 1.59);
 }

@@ -204,6 +204,7 @@ logger.info(\`New TransformComponent position of newEnt: \${scene.Get<TransformC
   import "../../../../decss/utils/tabs/index.mjs";
   import gsap from "gsap";
   import { ScrollTrigger } from "gsap/ScrollTrigger";
+  gsap.registerPlugin(ScrollTrigger);
 
   const copyBtns = document.querySelectorAll(".copy");
   copyBtns.forEach((btn) => {
