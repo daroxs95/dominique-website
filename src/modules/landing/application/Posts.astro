@@ -1,0 +1,129 @@
+---
+const posts = [
+  {
+    title: "Undertanding the basics of game development",
+    slug: "understanding-the-basics-of-game-development",
+  },
+  {
+    title: "From 0 to game loop",
+    slug: "understanding-the-basics-of-game-development",
+  },
+  {
+    title: "Low level resource management",
+    slug: "understanding-the-basics-of-game-development",
+  },
+  {
+    title: "A tale of graphics debugging",
+    slug: "understanding-the-basics-of-game-development",
+  },
+  {
+    title: "Down the PBR ligtning rabbit hole",
+    slug: "understanding-the-basics-of-game-development",
+  },
+];
+---
+
+<div class="title f-jc-center p-def fadein-item">
+  <h2 class="">Posts</h2>
+</div>
+
+<div class="posts p-def hstack f-wrap f-jc-center">
+  {
+    posts.map((p) => (
+      <div class="post fadein-item">
+        <img src="hero_engine.jpeg" alt="" width="300" height="350" />
+        <h3>{p.title}</h3>
+      </div>
+    ))
+  }
+</div>
+
+<div class="view-more f-jc-center p-def fadein-item">
+  <a class="btn inverted" href="#">View all posts</a>
+</div>
+
+<script>
+  import gsap from "gsap";
+
+  const postElements = document.querySelectorAll(".fadein-item");
+  postElements.forEach((post, index) => {
+    gsap.fromTo(
+      post,
+      {
+        opacity: 0,
+        y: "+=100",
+      },
+      {
+        opacity: 1,
+        duration: 1,
+        y: 0,
+        delay: index * 0.2,
+      }
+    );
+  });
+  // gsap.from(".posts", { duration: 1, opacity: 0, y: 100 });
+</script>
+
+<style>
+  h3 {
+    font-size: 20px;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+
+  .posts {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    flex-direction: column;
+    gap: calc(var(--h-gap) * 5);
+    flex-wrap: wrap;
+    @media (width >=768px) {
+      flex-direction: row;
+    }
+  }
+
+  .post {
+    width: 100%;
+    min-width: 300px;
+    max-width: 300px;
+    flex-direction: column;
+    display: flex;
+    flex: 1;
+    opacity: 0;
+  }
+
+  a {
+    margin-top: var(--v-gap);
+  }
+
+  .view-more {
+    margin-top: calc(var(--v-gap) * 5);
+  }
+
+  .view-more a {
+    text-transform: uppercase;
+    /* font-size: 32px;
+    padding: calc(var(--v-gap) * 4) calc(var(--h-gap) * 3); */
+  }
+
+  .post img {
+    width: 300px;
+    height: 350px;
+    object-fit: cover;
+    transition:
+      box-shadow 0.2s ease-in-out,
+      filter 0.2s ease-in-out;
+    filter: grayscale(100%);
+  }
+
+  .post img:hover {
+    filter: none;
+    box-shadow: black 0 calc(var(--h-gap) / 4);
+  }
+
+  .title h2 {
+    font-size: 34px;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+</style>
