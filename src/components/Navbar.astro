@@ -21,7 +21,9 @@ import { SITE_TITLE } from "../consts";
 </header>
 
 <script>
-  import gsap from "../utils/gsap.mjs";
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+  gsap.registerPlugin(ScrollTrigger);
 
   gsap.fromTo(
     "header",
