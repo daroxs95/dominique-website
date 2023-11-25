@@ -16,10 +16,10 @@ import { EMAIL, GITHUB, INSTA, SITE_MADE_IN_YEAR, SITE_TITLE } from "../consts";
         >Instagram</a
       >
     </div>
+    <h4 style="text-align: center">
+      {SITE_TITLE} • {SITE_MADE_IN_YEAR} •
+    </h4>
   </div>
-  <h4 style="text-align: center">
-    {SITE_TITLE} • {SITE_MADE_IN_YEAR} •
-  </h4>
 </footer>
 
 <style>
@@ -47,7 +47,6 @@ import { EMAIL, GITHUB, INSTA, SITE_MADE_IN_YEAR, SITE_TITLE } from "../consts";
     max-width: var(--max-width);
     margin: 0 auto;
     padding: calc(var(--v-gap) * 4) var(--h-gap);
-    padding-top: 0;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -66,5 +65,10 @@ import { EMAIL, GITHUB, INSTA, SITE_MADE_IN_YEAR, SITE_TITLE } from "../consts";
   .social a {
     font-size: 25px;
     padding: calc(var(--v-gap) / 2) var(--h-gap);
+  }
+
+  h2 {
+    font-size: 34px;
+    line-height: 200%;
   }
 </style>
